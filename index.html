@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html data-ng-app="musicCollection">
+	<head>
+		<title>Music Collection</title>
+		<link rel="shortcut icon" href="images/icon.png"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body data-ng-controller="musicCollectionCtrl as musicCtrl">
+		<header>
+			<div class="container text-vertical-center">
+				<div class="row">
+					<div class="col-lg-12">
+						<h2 class="into-text text-center">Music Collection</h2>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-lg-12">
+						Search: <input type="search" name="query" size="50%" data-ng-model="query">
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-lg-6">
+						Sort By:
+						<select data-ng-model="orderAlbum">
+							<option value="">Albums</option>
+							<option value="artist">Artists</option>
+							<option value="-year">Latest Release Date</option>
+							<option value="year">Oldest Release date</option>
+						</select>
+					</div>
+					<div class="col-lg-6">
+						Sort By:
+						<select data-ng-model="musicFilter.artist">
+							<option value="">All Artists</option>
+							<option data-ng-repeat="artist in musicCtrl.artists" value={{artist}}>{{artist}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</header>
+		<br>
+		<section>
+			<div class="container text-vertical-center">
+				<div class="row">
+					<div class="col-lg-12">
+						<div data-ng-repeat="album in musicCtrl.albums | filter:musicFilter | filter:query | orderBy:'album':doReverse | orderBy:orderAlbum">
+							<div class="col-md-4">
+								<img src="{{album.image}}">
+								<ul>
+									<li>{{album.name}}</li>
+									<li>{{album.artist}}</li>
+									<li>{{album.genre}}</li>
+									<li>{{album.year}}</li>
+								</ul>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+		<script src="js/controller.js"></script>
+	</body>
+</html>
